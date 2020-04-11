@@ -65,8 +65,8 @@ def dense(units, activation='relu', l1=0, l2=0, batch_norm=True,
 
 def create_amodel(state_shape, action_shape):
     inputs = keras.layers.Input(shape=state_shape)
-    x = dense(32)(inputs)
-    x = dense(32)(x)
+    x = dense(64)(inputs)
+    x = dense(64)(x)
     outputs = dense(action_shape[0], activation='softmax',
                     batch_norm=False)(x)
     
@@ -112,15 +112,15 @@ if __name__ == '__main__':
         pass
     elif agent_to_use == 'PG':
         amodel = create_amodel(env.state_shape, env.action_shape)
-        agent = PGAgent(amodel, .999, create_memory=lambda: RingMemory(500000))
+        agent = PGAgent(amodel, .99, create_memory=lambda: RingMemory(500000))
 
         # Uncomment if you want to play random exploring episodes
-        agent.set_playing_data(training=False, memorizing=True)
-        env.play_episodes(agent, 100, max_steps, random=True,
-                          verbose=True, episode_verbose=False,
-                          render=False)
-        agent.save(save_dir, note=f'PG')
-        print(len(agent.states))
+        #agent.set_playing_data(training=False, memorizing=True)
+        #env.play_episodes(agent, 100, max_steps, random=True,
+        #                  verbose=True, episode_verbose=False,
+        #                  render=False)
+        #agent.save(save_dir, note=f'PG')
+        #print(len(agent.states))
         #agent.learn(batch_size=32, epochs=10)
         #agent.load(f'{save_dir}/20200411_120627_345100', load_data=False)
         #agent.amodel.compile(optimizer=keras.optimizers.Adam(.003),
@@ -131,7 +131,7 @@ if __name__ == '__main__':
                                 batch_size=32, mini_batch=10000,
                                 entropy_coef=0,
                                 verbose=True)
-        for ndx in range(50):
+        for ndx in range(100):
             print(f'Save Loop: {ndx}')
             env.play_episodes(agent, 1, max_steps,
                                 verbose=True, episode_verbose=False,
@@ -160,20 +160,22 @@ if __name__ == '__main__':
                          create_memory=lambda: RingMemory(500000))
 
         agent.set_playing_data(training=True, memorizing=True,
-                               batch_size=64, mini_batch=10000, epochs=1,
+                               batch_size=128, mini_batch=1000, epochs=1,
                                entropy_coef=0,
                                verbose=True)
-        for ndx in range(50):
-            print(f'Save Loop: {ndx}')
-            env.play_episodes(agent, 1, max_steps,
-                                verbose=True, episode_verbose=False,
-                                render=True)
-            result = env.play_episodes(agent, 19, max_steps,
-                                       verbose=True, episode_verbose=False,
-                                       render=False)
-            agent.save(save_dir, note=f'A2C_{ndx}_{result}')
-            if result >= solved:
-                break
+        #for ndx in range(50):
+        #    print(f'Save Loop: {ndx}')
+        #    env.play_episodes(agent, 1, max_steps,
+        #                        verbose=True, episode_verbose=False,
+        #                        render=True)
+        #    result = env.play_episodes(agent, 19, max_steps,
+        #                               verbose=True, episode_verbose=False,
+        #                               render=False)
+        #    agent.save(save_dir, note=f'A2C_{ndx}_{result}')
+        #    if result >= solved:
+        #        break
+
+        agent.load(f'{save_dir}/trial_2', load_data=False)
 
         # Test
         agent.set_playing_data(training=False, memorizing=False)
@@ -182,6 +184,6 @@ if __name__ == '__main__':
                           render=True)
         avg = env.play_episodes(agent, 100, max_steps,
                                 verbose=True, episode_verbose=False,
-                                render=False)
+                                render=True)
         print(len(agent.states))
         print(avg)
