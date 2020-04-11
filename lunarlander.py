@@ -1,3 +1,7 @@
+"""
+Authors: Travis
+"""
+
 import gym 
 import numpy as np
 import tensorflow as tf

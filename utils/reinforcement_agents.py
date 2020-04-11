@@ -1,6 +1,6 @@
 """
 Author: Travis Hammond
-Version: 1_4_2020
+Version: 1_4_2020-Modified
 """
 
 
@@ -11,7 +11,7 @@ import tensorflow as tf
 from tensorflow.keras.models import model_from_json
 
 try:
-    from paiutils.reinforcement import (
+    from utils.reinforcement import (
         Memory, PlayingData, DQNAgent,
         PGAgent, DDPGAgent, NoisePolicy,
     )
