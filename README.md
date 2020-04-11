@@ -1,8 +1,12 @@
 # Hackathon-LunarLanderV2
 Hackathon: MLH Los Rios Hacks (4/11/2020)
+
 Hackathon Collaborators: Travis H, Maggie C
+
 Hackathon Goal: Attempt to solve (Avg. Reward of 200) LunarLander-V2 and learn more about reinforcement learning
+
 Goal Succeed: Partly, did not solve LunarLander-V2, but did learn more about reinforcement learning
+
 
 Trial 1
 - Algorithm: Policy Gradients (No Critic)
