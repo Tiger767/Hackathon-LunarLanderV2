@@ -24,7 +24,7 @@ Trial 1
 - Result: Failed 
   - Average Reward: -48
 
-Trail 2
+Trial 2
 - Algorithm: Policy Gradients (No Critic)
 - Episodes of A2C Agent (convergence episodes): 800
 - Actor
